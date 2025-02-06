@@ -24,11 +24,51 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+[Nest](https://github.com/nestjs/nest) framework TypeScript custom starter boilerplate repository.
 
+### Includes
+- [`Fastify`](https://fastify.dev/) instead of [Express](https://expressjs.com/)
+- [`@nestjs/config`](https://docs.nestjs.com/techniques/configuration) Module initialized
+- [`nestjs-prisma`](https://nestjs-prisma.dev/) Module initialized
+- `class-validator`, `class-transformer` and `ValidationPipe` [configured](https://docs.nestjs.com/techniques/validation)
+- [`BiomeJS`](https://biomejs.dev) configured with `@nedcloarbr/biome-config` instead of [ESLint](https://eslint.org/) and [Prettier](https://prettier.io/)
+- [`@nestjs/swagger`](https://docs.nestjs.com/openapi/introduction) Configured
+- [`@nestjs/terminus`](https://docs.nestjs.com/recipes/terminus) Health checks for `api` and `prisma`
+- [`Vitest`](https://vitest.dev/) with Vitest UI and coverage-v8 instead of [Jest](https://jestjs.io/)
+- [`nestjs-otel`](https://github.com/pragmaticivan/nestjs-otel)/[`Open Temeletry`](https://github.com/pragmaticivan/nestjs-otel-prom-grafana-tempo) Pre-configured
+- [`Docker`](https://www.docker.com/) compose file
 
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## Viewing Metrics & Port
+- Swagger: `http://localhost:9000/docs`
+- Grafana: `http://localhost:3000`
+
+> [!Warning]
+> PORTS THAT CANNOT BE USED IN THIS PROJECT \
+> \
+> Metrics API(`src/lib/metrics.ts`) \
+> `8081` -> OtelSDK \
+> \
+> Metrics otel-collector(`docker-compose.metrics.yml`) \
+> `1888` -> pprof extension  \
+> `8888` -> Prometheus metrics exposed by the collector  \
+> `8889` -> Prometheus exporter metrics  \
+> `13133` -> health_check extension \
+> `4317` -> OTLP gRPC receiver \
+> `4318` -> OTLP HTTP receiver \
+> `55679` -> zpages extension \
+> \
+> Metrics tempo(`docker-compose.metrics.yml`) \
+> `14268` -> jaeger ingest \
+> `3200` -> tempo \
+> `4317` -> otlp grpc \
+> `4318` -> otlp http \
+> `9411` -> zipkin \
+> \
+> Metrics loki(`docker-compose.metrics.yml`) \
+> `3100` -> loki \
+> \
+> Metrics prometheus(`docker-compose.metrics.yml`) \
+> `9090` -> prometheus 
 
 ## License
 
