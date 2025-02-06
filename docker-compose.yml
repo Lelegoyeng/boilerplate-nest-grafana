@@ -1,0 +1,44 @@
+include:
+  - path: ./docker-compose.metrics.yml
+    env_file: .env
+
+services:
+  api:
+    container_name: my_api
+    build: .
+    depends_on:
+      - database
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+    ports:
+      - '${API_PORT}:${API_PORT}'
+    networks:
+      - my_network
+
+  database:
+    container_name: my_database
+    image: mysql:latest
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - MYSQL_ROOT_PASSWORD=lelegoyeng
+      - MYSQL_DATABASE=db_lelegoyeng
+    ports:
+      - 3307:3306
+    networks:
+      - my_network
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - mysql-config:/etc/mysql
+
+networks:
+  my_network:
+    driver: bridge
+
+volumes:
+  mysql-data:
+  mysql-config:
